@@ -36,3 +36,12 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+gem 'dynamic_form'
+gem 'acts_as_tree'
+gem 'paperclip' #upload plugins
+gem 'jquery-fileupload-rails' #jQuery File Upload 是一个Jquery图片上传组件，支持多文件上传、取消、删除，上传前缩略图预览、
+                              #列表显示图片大小，支持上传进度条显示；
+
+group :test do
+  gem 'factory_girl_rails'  #专门用来构造模拟测试数据的S
+end
