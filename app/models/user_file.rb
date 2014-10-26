@@ -9,6 +9,7 @@ class UserFile < ActiveRecord::Base
   validates_presence_of :folder_id
   validates_uniqueness_of :attachment_file_name, :scope => 'folder_id', :message => I18n.t(:exists_already, :scope => [:activerecord, :errors, :messages])
   validates_format_of :attachment_file_name, :with => /\A[^\/\\\?\*:|"<>]+\z/, :message => I18n.t(:invalid_characters, :scope => [:activerecord, :errors, :messages])
+  validates_uniqueness_of :attachment_fingerprint
 
   def copy(target_folder)
     new_file = self.dup

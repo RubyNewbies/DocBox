@@ -1,0 +1,8 @@
+1、ebx ecx edx三个寄存器可知，现在linux最多支持传递3个参数。
+增加参数的方法：通过其他寄存器来传递参数。
+2、(1)在include/unistd.h中添加系统调用的功能号;
+(2)需要在include/linux/sys.h中增加函数引用__sys_foo。该函数在sys_call_table数组中的位置必须和__NR_xxxxxx的值对应上。仿照此文件中前面各个系统调用的写法，加上：extern int sys_foo();
+(3)修改system_call.s中系统调用总数
+(4)在make file中添加新系统调用所在文件的编译、链接规则
+(5)在内核中编写系统调用处理函数
+

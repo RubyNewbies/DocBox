@@ -1,0 +1,17 @@
+#define __LIBRARY__  
+#include <unistd.h>  
+#include <errno.h>  
+#include <stdio.h>  
+  
+_syscall2(int,whoami,char*,name,unsigned int,size)
+
+int main()
+{
+	char tmp[24];
+	int i;
+	for(i=0;i<24;i++)
+		tmp[i]='\0';
+	i = whoami(tmp,24);
+	printf("%s\n",tmp);
+	return 0;
+}
