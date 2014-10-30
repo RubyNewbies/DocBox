@@ -39,12 +39,13 @@ Boxroom::Application.routes.draw do
     end
   end
 
-  resources :folders do
+  resources :files do
     collection do
       delete :destroy_multiple
+      post :zip_download
     end
   end
-  
+
   resources :files, :shallow => :true, :only => :show do
     resources :share_links, :only => [:new, :create]
   end

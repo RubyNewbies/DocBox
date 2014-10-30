@@ -1,50 +1,16 @@
-#define __LIBRARY__  
-#include <string.h> 
-#include <errno.h>
-#include <linux/head.h>
-#include <linux/sched.h>
-#include <linux/kernel.h>
-#include <asm/system.h>
-#include <asm/segment.h>
-#include <asm/io.h>
+/*
+ *  linux/lib/wait.c
+ *
+ *  (C) 1991  Linus Torvalds
+ */
 
-char str[24];
+#define __LIBRARY__
+#include <unistd.h>
+#include <sys/wait.h>
 
-int sys_iam(const char * name)
+_syscall3(pid_t,waitpid,pid_t,pid,int *,wait_stat,int,options)
+
+pid_t wait(int * wait_stat)
 {
-	int i=0;
-	int j=0;
-	char tmp[32]={0};
-	while(get_fs_byte(name+i)!='\0')
-	{
-		tmp[i] = get_fs_byte(name+i);
-		i++;
-		if(i>30)
-			break;
-	}
-	if(i>23)
-	{
-		errno = EINVAL;
-		return -errno;
-	}
-	for(j=0;j<i+1;j++)
-		str[j] = tmp[j];
-
-	return i;
-}
-
-int sys_whoami(char* name, unsigned int size)
-{
-	int i;
-	unsigned int c=0;
-	while(str[c]!='\0')
-		c++;
-	if(c > size)
-	{
-		errno = EINVAL;
-		return -errno;
-	}
-	for(i=0;i<c;i++)
-		put_fs_byte(str[i],name+i);  
-	return i;
+	return waitpid(-1,wait_stat,0);
 }

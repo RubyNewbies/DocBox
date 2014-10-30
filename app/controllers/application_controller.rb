@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
 
   def get_folder_or_redirect(id)
     Folder.find(id)
-  rescue ActiveRecord::RecordNotFound
-    redirect_to Folder.root, :alert => t(:already_deleted, :type => t(:this_folder))
+  #rescue ActiveRecord::RecordNotFound
+    #redirect_to Folder.root, :alert => t(:already_deleted, :type => t(:this_folder))
   end
 end

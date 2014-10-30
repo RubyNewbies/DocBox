@@ -38,8 +38,9 @@ class UserFile < ActiveRecord::Base
                        'xls' => "Microsoft Excel Spreadsheet", 
                        'ppt' => "Microsoft PowerPoint Slide", 
                        'c'   => "C Source", 
-                       'cpp' => "C++ Source" 
+                       'cpp' => "C++ Source",
+                       'txt' => "Plain Text"
                        }
-    type_collection[self.extension] == nil ? attachment_content_type : type_collection[self.extension]
+    type_collection[self.extension] == nil ? "#{self.extension} File" : type_collection[self.extension]
   end
 end

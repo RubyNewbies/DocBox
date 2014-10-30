@@ -60,6 +60,25 @@ class FilesController < ApplicationController
     redirect_to @folder
   end
 
+  def zip_download
+    @files = UserFile.find(params[:files_id])
+
+    zipfile_name = "#{Rails.root}/tmp/archive.zip"
+
+    Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+      @files.each do |file|
+        filename = file.attachment_file_name
+        filepath = file.attachment.path
+        # Two arguments:
+        # - The name of the file as it will appear in the archive
+        # - The original file, including the path to find it
+        zipfile.add(filename, filepath)
+      end
+    end
+    send_file zipfile_name, :filename => "archive.zip"
+    File.delete(zipfile_name)
+  end
+
   def exists
     @file = UserFile.new(:attachment_file_name => params[:name].gsub(RESTRICTED_CHARACTERS, '_'))
     @file.folder_id = params[:folder]
@@ -71,7 +90,7 @@ class FilesController < ApplicationController
   def require_existing_file
     @file = UserFile.find(params[:id])
     @folder = @file.folder
-  rescue ActiveRecord::RecordNotFound
-    redirect_to Folder.root, :alert => t(:already_deleted, :type => t(:this_file))
+  #rescue ActiveRecord::RecordNotFound
+    #redirect_to Folder.root, :alert => t(:already_deleted, :type => t(:this_file))
   end
 end

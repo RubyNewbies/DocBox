@@ -16,7 +16,8 @@ gem 'dynamic_form'
 gem 'acts_as_tree'
 gem 'paperclip'
 gem 'jquery-fileupload-rails'
-
+gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
+gem 'zip-zip' # will load compatibility for old rubyzip API.
 group :test do
   gem 'factory_girl_rails'
 end

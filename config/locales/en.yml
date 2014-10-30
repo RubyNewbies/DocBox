@@ -265,6 +265,7 @@
   create_a_new_folder: Create a new folder
   upload_a_file: Upload files
   permissions: Permissions
+  delete_selection: Delete selection
   clipboard: Clipboard
   size: Size
   date_modified: Date modified
@@ -272,6 +273,7 @@
   edit: Edit
   add_to_clipboard: Add to clipboard
   download: Download
+  download_selection: Download selection
   share: Share
 
   #groups/edit
