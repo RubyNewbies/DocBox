@@ -19,7 +19,7 @@
 <% if current_user.can_delete(@folder) -%>
   <span class="folder_menu" id="delete_multiple">
     <%= image_tag('delete.png') %>
-    <%= link_to t(:delete_selection), :controller => :files, :action => :destroy_multiple, :data => { :confirm => t(:are_you_sure) }, :id => '1' %>
+    <%= link_to t(:delete_selection), :controller => :files, :action => :destroy_multiple, :data => { :confirm => t(:are_you_sure) } %>
   </span>
 <% end -%>
 <% if current_user.can_read(@folder) -%>

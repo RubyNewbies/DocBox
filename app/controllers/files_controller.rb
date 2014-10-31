@@ -69,9 +69,6 @@ class FilesController < ApplicationController
       @files.each do |file|
         filename = file.attachment_file_name
         filepath = file.attachment.path
-        # Two arguments:
-        # - The name of the file as it will appear in the archive
-        # - The original file, including the path to find it
         zipfile.add(filename, filepath)
       end
     end
@@ -90,7 +87,7 @@ class FilesController < ApplicationController
   def require_existing_file
     @file = UserFile.find(params[:id])
     @folder = @file.folder
-  #rescue ActiveRecord::RecordNotFound
-    #redirect_to Folder.root, :alert => t(:already_deleted, :type => t(:this_file))
+  rescue ActiveRecord::RecordNotFound
+    redirect_to Folder.root, :alert => t(:already_deleted, :type => t(:this_file))
   end
 end
