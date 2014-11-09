@@ -8,6 +8,8 @@ class FilesController < ApplicationController
   before_action :require_delete_permission, :only => :destroy
 
   helper_method :sort_column, :sort_direction
+
+  # layout 'application', :except => :preview
   # @file and @folder are set in require_existing_file
   def show
     send_file @file.attachment.path, :filename => @file.attachment_file_name
@@ -68,12 +70,19 @@ class FilesController < ApplicationController
     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
       @files.each do |file|
         filename = file.attachment_file_name
-        filepath = file.attachment.path
+        filepath = file_path(@file)
         zipfile.add(filename, filepath)
       end
     end
     send_file zipfile_name, :filename => "archive.zip"
     File.delete(zipfile_name)
+  end
+
+  def preview
+    @file = UserFile.find(params[:id])
+    @type = @file.attachment_content_type.split('/')
+
+    render :layout => false
   end
 
   def exists

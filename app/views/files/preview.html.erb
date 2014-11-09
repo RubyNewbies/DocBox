@@ -1,0 +1,26 @@
+<html>
+<head>
+  
+</head>
+<body bgcolor="white">
+<% case @type[0] %>
+<% when "text" then %>
+  <%= raw(coderay @file) %>
+
+<% when "image" then %>
+  <%= image_tag file_path(@file), :class => 'image_size' %>
+
+<% when "application" then %>
+  <% case @type[1] %>
+  <% when "pdf" then %>
+    <p>We are still working on the support of <%= @file.extension %> now :-)</p>
+  <% else %>
+    <%= raw(coderay @file) %>
+  <% end %>
+
+<% else %>
+  <p>We are still working on the support of <%= @file.extension %> now :-)</p>
+<% end %>
+</body>
+
+</html>
