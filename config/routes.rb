@@ -46,6 +46,8 @@ Boxroom::Application.routes.draw do
     end
   end
 
+  match '/files/destroy_multiple/:id',to: 'user_file#destroy_multiple', via:'destroy_multiple'
+
   resources :files, :shallow => :true, :only => :show do
     resources :share_links, :only => [:new, :create]
   end

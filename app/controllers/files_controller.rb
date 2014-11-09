@@ -87,7 +87,7 @@ class FilesController < ApplicationController
   def require_existing_file
     @file = UserFile.find(params[:id])
     @folder = @file.folder
-  rescue ActiveRecord::RecordNotFound
-    redirect_to Folder.root, :alert => t(:already_deleted, :type => t(:this_file))
+  #rescue ActiveRecord::RecordNotFound
+    #redirect_to Folder.root, :alert => t(:already_deleted, :type => t(:this_file))
   end
 end

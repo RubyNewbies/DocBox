@@ -17,11 +17,12 @@ class FoldersController < ApplicationController
 
   # Note: @folder is set in require_existing_folder
   def show
-    @files = @folder.user_files.order("LOWER(" + sort_column + ") " + sort_direction)
+    @files = @folder.user_files.order(sort_column + " " + sort_direction)
   end
 
   def sort_column
-    UserFile.column_names.include?(params[:sort]) ? params[:sort] : "attachment_file_name"
+    column = params[:sort] == "attachment_file_size" ? "attachment_file_size" : "LOWER(#{params[:sort]})"
+    UserFile.column_names.include?(params[:sort]) ? column : "attachment_file_name"
   end
   
   def sort_direction

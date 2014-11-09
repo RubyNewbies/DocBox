@@ -8,6 +8,7 @@
 </p>
 <% end -%>
 <p>
+
 <% if current_user.can_create(@folder) -%>
   <span class="folder_menu"><%= image_tag('folder_add.png', :alt => t(:create_a_new_folder)) %> <%= link_to t(:create_a_new_folder), new_folder_folder_path(@folder) %></span>
   <span class="folder_menu"><%= image_tag('file_add.png', :alt => t(:upload_a_file)) %> <%= link_to t(:upload_a_file), new_folder_file_path(@folder) %></span>
@@ -19,13 +20,13 @@
 <% if current_user.can_delete(@folder) -%>
   <span class="folder_menu" id="delete_multiple">
     <%= image_tag('delete.png') %>
-    <%= link_to t(:delete_selection), :controller => :files, :action => :destroy_multiple, :data => { :confirm => t(:are_you_sure) } %>
+    <%= link_to t(:delete_selection), {:controller => :files, :action => :destroy_multiple}, :data => { :confirm => t(:are_you_sure) } %>
   </span>
 <% end -%>
 <% if current_user.can_read(@folder) -%>
   <span class="folder_menu" id="download_multiple">
     <%= image_tag('tick.png') %>
-    <%= link_to t(:download_selection), :controller => :files, :action => :zip_download %>
+    <%= link_to t(:download_selection), {:controller => :files, :action => :zip_download} %>
   </span>
 <% end -%>
 </p>
