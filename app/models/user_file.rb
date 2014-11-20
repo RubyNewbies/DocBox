@@ -43,4 +43,15 @@ class UserFile < ActiveRecord::Base
                        }
     type_collection[self.extension] == nil ? "#{self.extension} File" : type_collection[self.extension]
   end
+
+  def self.search(search)
+    if search == ''
+      a = self.first.id
+      b = self.last.id
+      find((a..b).to_a)
+    else
+     where("attachment_file_name LIKE '%#{search}%'")
+    end
+  end
+  
 end

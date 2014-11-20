@@ -17,7 +17,7 @@ class FoldersController < ApplicationController
 
   # Note: @folder is set in require_existing_folder
   def show
-    @files = @folder.user_files.order(sort_column + " " + sort_direction)
+    @files = @folder.user_files.order(sort_column + " " + sort_direction).search(params[:q])
   end
 
   def sort_column
