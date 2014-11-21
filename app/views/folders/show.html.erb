@@ -30,6 +30,14 @@
   </span>
 <% end -%>
 </p>
+
+<span class="folder_menu" id="download_multiple">
+  <%= form_tag({controller: "folders", action: "show"}, method: "get") do %>
+    <%= text_field_tag(:q, params[:q]) %>
+    <%= submit_tag("Search") %>
+  <% end %>
+</span>
+
 <div id="files_and_folders">
   <table>
     <tr>
