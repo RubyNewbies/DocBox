@@ -2,10 +2,7 @@
 *= require_self
 *= require_tree .
 */
-.image-size {
-  max-width: 500px;
-  max-height: 500px;
-}
+
 html, body { height: 100%; }
 body { padding: 0px; margin: 0px; background-color: rgb(225,225,225); }
 body, input { font-family: Arial; font-size: 13pt; }

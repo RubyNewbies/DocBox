@@ -54,7 +54,7 @@
   <% @folder.children.each do |folder| -%>
     <% if current_user.can_read(folder) -%>
     <tr class="<%= cycle('even','odd') %>">
-      <td class="checkbox"><%= check_box_tag 'folders_id[]', folder.id %>
+      <td class="checkbox"></td>
       <td><%= image_tag('folder.png') %></td>
       <td class="file_name"><%= link_to folder.name, folder %></td>
       <td class="file_type">Folder</td>
@@ -79,7 +79,7 @@
   <% @files.each do |file| -%>
     <% if current_user.can_read(@folder) -%>
     <tr class="<%= cycle('even','odd') %>">
-      <td class="checkbox"><%= check_box_tag 'files_id[]', file.id %>
+      <td class="checkbox"><%= check_box_tag 'id[]', file.id %></td>
       <td><%= image_tag(file_icon(file.extension)) %></td>
       <td class="file_name"><%= link_to file.attachment_file_name, file_path(file), :title => "#{t(:download)} #{file.attachment_file_name}" %></td>
       <td class="file_type"><%= file.filetype_to_human %></td>
@@ -97,7 +97,7 @@
           :method => :post, :title => t(:add_to_clipboard)
         %>&nbsp;
         <%= link_to image_tag('share.png', :alt => t(:share)), new_file_share_link_path(file), :title => t(:share) %>&nbsp;
-        <%= link_to image_tag('fileicons/txt.png', :alt => t(:preview)), { :controller => :files, :action => :preview, :id => file.id }, :rel => "shadowbox;width=500;height=500", :title => t(:preview) %>
+        <%= link_to image_tag('fileicons/txt.png', :alt => t(:preview)), { :controller => :files, :action => :preview, :id => file.id }, :rel => "shadowbox;width=800;height=600", :title => t(:preview) %>
       </td>
     </tr>
     <% end -%>
