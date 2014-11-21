@@ -62,8 +62,7 @@
   </table>
   <p>
     <%= button_to t(:clear_clipboard),
-      { :controller => :clipboard, :action => :reset, :folder_id => @folder, :authenticity_token => form_authenticity_token }, :method => :put
-    %>
+      { :controller => :clipboard, :action => :reset, :folder_id => @folder, :authenticity_token => form_authenticity_token }, :method => :put, :class => 'btn btn-primary' %>
     &nbsp; &mdash; &nbsp;
     <%= link_to t(:back), '#', :class => 'back_link' %>
   </p>

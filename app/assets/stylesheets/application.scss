@@ -1,13 +1,17 @@
 /*
 *= require_self
 *= require_tree .
+*= require font-awesome
 */
 
-html, body { height: 100%; }
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import "font-awesome";
+
 body { padding: 0px; margin: 0px; background-color: rgb(225,225,225); }
 body, input { font-family: Arial; font-size: 13pt; }
 input { padding: 3px; border: 1px solid rgb(210,210,210); }
-input[type='button'], input[type='submit'] { background-color: #EEE; padding: 5px; }
 input[type='file'] { border: 0; }
 textarea { border: 1px solid rgb(210,210,210); width: 700px; padding: 10px; font-family: Arial; font-size: 10pt; }
 img { border: 0; }
