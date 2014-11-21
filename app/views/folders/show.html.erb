@@ -34,12 +34,13 @@
 </p>
 
 <div id="files_and_folders">
-  <span class="search" id="search_tag">
   <%= form_tag({controller: "folders", action: "show"}, method: "get", class: "form-inline") do %>
+    <%= select_tag(:ty, options_for_select([['All', 1], ['Music', 2], ['Document', 3], ['Code', 4], ['Video', 5], ['Picture', 6], ['Others', 7] ], @lastty), :class => 'form-control') %>
+    <%= submit_tag "filter", :class => 'btn btn-primary' %>
+
     <%= text_field_tag :q, params[:q], :class => 'form-control' %>
     <%= submit_tag t(:search), :class => 'btn btn-primary' %>
   <% end %>
-  </span>
   <table>
     <tr>
       <th></th>
