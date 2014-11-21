@@ -45,12 +45,38 @@ class UserFile < ActiveRecord::Base
   end
 
   def self.search(search)
-    if search == ''
-      a = self.first.id
-      b = self.last.id
-      find((a..b).to_a)
+   
+      where("attachment_file_name LIKE '%#{search}%'")
+  end
+  
+  def self.special_find(type)
+    other = ["pdf","plain","word","rtf","excel","powerpoint","works","audio","x-","video","image"]
+    if type == '1'
+      where("attachment_content_type LIKE '%#{""}%'")
+    elsif type == '2'
+      where("attachment_content_type LIKE '%#{"audio"}%'")
+    elsif type == '3'
+      @tmp = where("attachment_content_type LIKE '%#{"pdf"}%'")
+      @tmp += where("attachment_content_type LIKE '%#{"plain"}%'")
+      @tmp += where("attachment_content_type LIKE '%#{"word"}%'")
+      @tmp += where("attachment_content_type LIKE '%#{"rtf"}%'")
+      @tmp += where("attachment_content_type LIKE '%#{"excel"}%'")
+      @tmp += where("attachment_content_type LIKE '%#{"powerpoint"}%'")
+      @tmp += where("attachment_content_type LIKE '%#{"works"}%'")
+      return @tmp
+    elsif type == '4'
+      where("attachment_content_type LIKE '%#{"x-"}%'")
+    elsif type == '5'
+      where("attachment_content_type LIKE '%#{"video"}%'")
+    elsif type == '6'
+      where("attachment_content_type LIKE '%#{"image"}%'")
     else
-     where("attachment_file_name LIKE '%#{search}%'")
+      @tmp = where("attachment_content_type NOT LIKE '%#{"pdf"}%'")
+      for i in 1...other.length do
+        str = other[i]
+        @tmp -= where("attachment_content_type LIKE '%#{str}%'")
+      end
+      return @tmp
     end
   end
   
