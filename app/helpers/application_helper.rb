@@ -6,15 +6,7 @@ module ApplicationHelper
   end
 
   def coderay(file)
-    text = File.read(file.attachment.path)
-    case file.extension
-    when 'rb' then
-      type = 'ruby'
-    when 'py' then
-      type = 'python'
-    else
-      type = file.extension
-    end
-    CodeRay.scan(text, type.to_sym).div
+    text = file.attachment.path
+    CodeRay.scan_file(text).div
   end
 end

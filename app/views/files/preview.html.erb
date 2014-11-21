@@ -1,10 +1,5 @@
 <html>
 <head>
-  <%= javascript_include_tag "compatibility" %>
-  <%= javascript_include_tag "l10n" %>
-  <%= javascript_include_tag "pdf" %>
-  <%= javascript_include_tag "pdfviewer" %>
-  <%= stylesheet_link_tag "viewer", :media => "all" %>
 </head>
 <body bgcolor="white">
 <% case @type[0] %>
@@ -17,8 +12,7 @@
 <% when "application" then %>
   <% case @type[1] %>
   <% when "pdf" then %>
-    <p>We are still working on the support of <%= @file.extension %> now :-)</p>
-    <%= content_tag(:embed, "", src: file_path(@file), type: "application/pdf") %>
+    <%= content_tag(:object, "", data: @file.attachment.url, type: "application/pdf", width: "800", height: "600") %>
   <% else %>
     <%= raw(coderay @file) %>
   <% end %>

@@ -70,7 +70,6 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
-    pdfjs-rails (0.0.2)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -131,7 +130,6 @@ DEPENDENCIES
   jquery-fileupload-rails
   jquery-rails
   paperclip
-  pdfjs-rails
   rails (= 4.1.6)
   rubyzip (>= 1.0.0)
   sass-rails (~> 4.0.0)

@@ -1,5 +1,5 @@
 class UserFile < ActiveRecord::Base
-  has_attached_file :attachment, :path => ':rails_root/uploads/:rails_env/:id/:style/:id', :restricted_characters => RESTRICTED_CHARACTERS
+  has_attached_file :attachment, :restricted_characters => RESTRICTED_CHARACTERS
   do_not_validate_attachment_file_type :attachment
 
   belongs_to :folder
@@ -41,7 +41,7 @@ class UserFile < ActiveRecord::Base
                        'cpp' => "C++ Source",
                        'txt' => "Plain Text"
                        }
-    type_collection[self.extension] == nil ? "#{self.extension} File" : type_collection[self.extension]
+    type_collection[self.extension] == nil ? "#{self.attachment_content_type.split('/')[-1]} " + I18n.t(:file) : type_collection[self.extension]
   end
 
   def self.search(search)

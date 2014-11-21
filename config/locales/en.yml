@@ -220,6 +220,7 @@
   name: Name
   email: Email
   submit: Submit
+  search: Search
 
   your_changes_were_saved: Your changes were saved successfully.
   already_deleted: "Sorry, but this %{type} was deleted already."

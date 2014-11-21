@@ -29,12 +29,13 @@
     <%= link_to t(:download_selection), {:controller => :files, :action => :zip_download} %>
   </span>
 <% end -%>
+
 </p>
 
-<span class="folder_menu" id="download_multiple">
+<span class="search" id="search_tag">
   <%= form_tag({controller: "folders", action: "show"}, method: "get") do %>
     <%= text_field_tag(:q, params[:q]) %>
-    <%= submit_tag("Search") %>
+    <%= submit_tag t(:search) %>
   <% end %>
 </span>
 
@@ -53,7 +54,7 @@
     <tr class="<%= cycle('even','odd') %>">
       <td><%= image_tag('folder.png') %></td>
       <td class="file_name">&uarr; <%= link_to t(:up), @folder.parent, :title => @folder.parent.name %></td>
-      <td class="file_type">Folder</td>
+      <td class="file_type"><%= t(:folder) %></td>
       <td class="file_size">--</td>
       <td class="file_modified">--</td>
       <td></td>
@@ -65,7 +66,7 @@
       <td class="checkbox"></td>
       <td><%= image_tag('folder.png') %></td>
       <td class="file_name"><%= link_to folder.name, folder %></td>
-      <td class="file_type">Folder</td>
+      <td class="file_type"><%= t(:folder) %></td>
       <td class="file_size">--</td>
       <td class="file_modified"><%= l folder.updated_at, :format => :short %></td>
       <td>
@@ -105,7 +106,7 @@
           :method => :post, :title => t(:add_to_clipboard)
         %>&nbsp;
         <%= link_to image_tag('share.png', :alt => t(:share)), new_file_share_link_path(file), :title => t(:share) %>&nbsp;
-        <%= link_to image_tag('fileicons/txt.png', :alt => t(:preview)), { :controller => :files, :action => :preview, :id => file.id }, :rel => "shadowbox;width=800;height=600", :title => t(:preview) %>
+        <%= link_to image_tag('fileicons/txt.png', :alt => t(:preview)), { :controller => :files, :action => :preview, :id => file.id }, :rel => "shadowbox;width=808;height=606", :title => t(:preview) %>
       </td>
     </tr>
     <% end -%>
