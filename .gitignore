@@ -14,3 +14,4 @@
 .secret
 
 /db/*.sqlite3
+/public/system/*
