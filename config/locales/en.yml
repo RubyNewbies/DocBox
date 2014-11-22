@@ -221,6 +221,7 @@
   email: Email
   submit: Submit
   search: Search
+  filter: Filter
 
   your_changes_were_saved: Your changes were saved successfully.
   already_deleted: "Sorry, but this %{type} was deleted already."

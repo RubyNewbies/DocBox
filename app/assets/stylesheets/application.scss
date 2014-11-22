@@ -2,13 +2,15 @@
 *= require_self
 *= require_tree .
 *= require font-awesome
+*= require rails_bootstrap_forms
 */
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
+@import "rails_bootstrap_forms";
 @import "font-awesome";
 
+.search {float:right;}
 body { padding: 0px; margin: 0px; background-color: rgb(225,225,225); }
 body, input { font-family: Arial; font-size: 13pt; }
 input { padding: 3px; border: 1px solid rgb(210,210,210); }
@@ -50,8 +52,6 @@ a:hover { text-decoration: underline; }
 .file_name a, .shared_file a { color: #000; text-decoration: underline; }
 .file_size { min-width: 100px; }
 .disabled { color: #999; }
-.breadcrumb { margin-bottom: 5px; padding: 4px; font-size: 11pt; background-color: #F6F6F6; border: 1px solid #DDD; border-bottom-color: #AAA; border-right-color: #CCC; display: inline-block; }
-.nowrap { white-space: nowrap; }
 .permission_column { width: 75px; text-align: center; }
 .permissions_button, .back { display: inline-block; margin-top: 15px; }
 .clipboard_empty { margin-top: 35px; }

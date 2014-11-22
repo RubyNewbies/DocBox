@@ -3,8 +3,10 @@
 <h1><%= content_for :title %></h1>
 <% unless @folder.is_root? -%>
 <p>
-  <%= breadcrumbs(@folder) %>
-  <span class="breadcrumb nowrap"><%= @folder.name %></span>
+  <ol class="breadcrumb">
+    <%= breadcrumbs(@folder) %>
+    <li><%= @folder.name %></li>
+  </ol>
 </p>
 <% end -%>
 <p>
@@ -34,15 +36,15 @@
 </p>
 
 <div id="files_and_folders">
-  <%= form_tag({controller: "folders", action: "show"}, method: "get", class: "form-inline") do %>
-    <%= select_tag(:ty, options_for_select([['All', 1], ['Music', 2], ['Document', 3], ['Code', 4], ['Video', 5], ['Picture', 6], ['Others', 7] ], @lastty), :class => 'form-control') %>
-    <%= submit_tag "filter", :class => 'btn btn-primary' %>
+  <%= form_tag({controller: "folders", action: "show"}, method: "get", class: "form-inline search") do %>
+    <%= select_tag(:ty, options_for_select([['All', 1], ['Music', 2], ['Document', 3], ['Code', 4], ['Video', 5], ['Picture', 6], ['Others', 7] ], @lastty), :class => 'form-control input-sm') %>
+    <%= submit_tag t(:filter), :class => 'btn btn-primary btn-sm' %>
 
-    <%= text_field_tag :q, params[:q], :class => 'form-control' %>
-    <%= submit_tag t(:search), :class => 'btn btn-primary' %>
+    <%= text_field_tag :q, params[:q], :class => 'form-control input-sm' %>
+    <%= submit_tag t(:search), :class => 'btn btn-primary btn-sm' %>
   <% end %>
-  <table>
-    <tr>
+  <table class="table table-hover">
+    <thead><tr>
       <th></th>
       <th></th>
       <th><%= sortable "attachment_file_name", "Name" %></th>
@@ -50,10 +52,11 @@
       <th><%= sortable "attachment_file_size", "Size" %></th>
       <th><%= sortable "updated_at", "Date Modified" %></th>
       <th></th>
-    </tr>
+    </tr></thead>
+  <tbody>
   <% unless @folder.is_root? -%>
     <tr class="<%= cycle('even','odd') %>">
-      <td class="checkbox"></td>
+      <td></td>
       <td><%= fa_icon('folder-open-o') %></td>
       <td class="file_name">&uarr; <%= link_to t(:up), @folder.parent, :title => @folder.parent.name %></td>
       <td class="file_type"><%= t(:folder) %></td>
@@ -65,7 +68,7 @@
   <% @folder.children.each do |folder| -%>
     <% if current_user.can_read(folder) -%>
     <tr class="<%= cycle('even','odd') %>">
-      <td class="checkbox"></td>
+      <td></td>
       <td><%= fa_icon('folder-open-o') %></td>
       <td class="file_name"><%= link_to folder.name, folder %></td>
       <td class="file_type"><%= t(:folder) %></td>
@@ -90,7 +93,7 @@
   <% @files.each do |file| -%>
     <% if current_user.can_read(@folder) -%>
     <tr class="<%= cycle('even','odd') %>">
-      <td class="checkbox"></td>
+      <td></td>
       <td><%= file_icon(file) %></td>
       <td class="file_name"><%= link_to file.attachment_file_name, file_path(file), :title => "#{t(:download)} #{file.attachment_file_name}" %></td>
       <td class="file_type"><%= file.filetype_to_human %></td>
@@ -111,6 +114,7 @@
     </tr>
     <% end -%>
   <% end -%>
+  </tbody>
   </table>
 </div>
 <% if current_user.member_of_admins? -%>

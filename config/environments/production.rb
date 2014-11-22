@@ -77,7 +77,8 @@ Boxroom::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
-
+  # Do not dump schema after migrations.
+  config.active_record.dump_schema_after_migration = false
   # Mail settings
   # config.action_mailer.delivery_method = :smtp
   # config.action_mailer.smtp_settings = {
