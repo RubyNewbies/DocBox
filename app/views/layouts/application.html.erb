@@ -2,9 +2,9 @@
 <html>
 <head>
 <% if content_for? :title -%>
-  <title>Boxroom | <%= content_for :title %></title>
+  <title>DocBox | <%= content_for :title %></title>
 <% else -%>
-  <title>Boxroom</title>
+  <title>DocBox</title>
 <% end -%>
   <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag 'application' %>
@@ -33,13 +33,12 @@
       </p>
     </div>
     <% end -%>
+    <!--
     <%= render 'shared/header' %>
-    <%= render 'shared/menu' %>
+    <%= render 'shared/menu' %>-->
     <div id="content">
       <%= yield %>
     </div>
-    <div id="footer_spacer"></div>
-    <%= render 'shared/footer' %>
   </div>
 </body>
 </html>

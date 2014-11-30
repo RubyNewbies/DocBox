@@ -54,33 +54,73 @@ class FilesController < ApplicationController
     redirect_to @folder
   end
 
-  def destroy_multiple
-    @files = UserFile.find(params[:files_id])
-    @files.each do |file|
-      file.destroy
+  def recursive_add_folder(curr_dir, folder, container)
+    if curr_dir == '' then
+      container.mkdir(folder.name)
+    else
+      container.mkdir(curr_dir + folder.name)
     end
-    redirect_to @folder
-  end
 
-  def zip_download
-    @files = UserFile.find(params[:files_id])
+    folder.user_files.each do |file|
+      filename = file.attachment_file_name
+      filepath = file.attachment.path
+      container.add(curr_dir + folder.name + '/' + filename, filepath)
+    end
 
-    zipfile_name = "#{Rails.root}/tmp/archive.zip"
-
-    Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
-      @files.each do |file|
-        filename = file.attachment_file_name
-        filepath = file_path(@file)
-        zipfile.add(filename, filepath)
+    if folder.has_children? then
+      folder.children.each do |children|
+        recursive_add_folder(curr_dir + folder.name + '/', children, container)
       end
     end
-    send_file zipfile_name, :filename => "archive.zip"
-    File.delete(zipfile_name)
+  end
+
+  def operation_multiple
+    if params[:form_1] == nil then
+      return false
+    end
+    if params[:id] then
+      @files = UserFile.find(params[:id])
+      @current_folder = @files[0].folder
+    end
+    if params[:folders_id] then
+      @folders = Folder.find(params[:folders_id])
+      @current_folder = @folders[0].parent
+    end
+    if params[:form_1][:download_multiple] then
+      zipfile_name = "#{Rails.root}/tmp/archive.zip"
+      if File.exists? zipfile_name then 
+        File.delete(zipfile_name)
+      end
+      Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+        if @files then
+          @files.each do |file|
+            filename = file.attachment_file_name
+            filepath = file.attachment.path
+            zipfile.add(filename, filepath)
+          end
+        end
+
+        if @folders then
+          @folders.each do |folder|
+            recursive_add_folder('', folder, zipfile)
+          end
+        end
+      end
+      send_file zipfile_name, :filename => DateTime.current.to_s(:number) + '.zip'
+    elsif params[:form_1][:destroy_multiple] then
+      UserFile.destroy(params[:id]) unless params[:id].blank?
+      Folder.destroy(params[:folders_id]) unless params[:folders_id].blank?
+      respond_to do |format|
+        format.html { redirect_to @current_folder }
+        format.json { head :no_content }
+      end
+    end
+  rescue ActiveRecord::RecordNotFound
+    return false
   end
 
   def preview
     @file = UserFile.find(params[:id])
-
     render :layout => false
   end
 
@@ -95,7 +135,7 @@ class FilesController < ApplicationController
   def require_existing_file
     @file = UserFile.find(params[:id])
     @folder = @file.folder
-  #rescue ActiveRecord::RecordNotFound
-    #redirect_to Folder.root, :alert => t(:already_deleted, :type => t(:this_file))
+  rescue ActiveRecord::RecordNotFound
+    redirect_to Folder.root, :alert => t(:already_deleted, :type => t(:this_file))
   end
 end

@@ -41,8 +41,7 @@ Boxroom::Application.routes.draw do
 
   resources :files do
     collection do
-      delete :destroy_multiple
-      post :zip_download
+      post :operation_multiple
     end
     member do
       get :preview

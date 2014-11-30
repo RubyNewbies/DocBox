@@ -12,7 +12,7 @@
 <% when "application" then %>
   <% case @file.mime_subtype %>
   <% when "pdf" then %>
-    <%= content_tag(:object, "", data: @file.attachment.url, type: "application/pdf", width: "760", height: "560") %>
+    <%= content_tag(:object, "", data: @file.attachment.url, type: "application/pdf", width: "790", height: "590") %>
   <% else %>
     <%= raw(coderay @file) %>
   <% end %>

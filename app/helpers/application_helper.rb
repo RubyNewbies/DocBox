@@ -9,4 +9,5 @@ module ApplicationHelper
     text = file.attachment.path
     CodeRay.scan_file(text).div
   end
+
 end

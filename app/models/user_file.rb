@@ -45,13 +45,14 @@ class UserFile < ActiveRecord::Base
                        'doc' => "Microsoft Word Document", 
                        'xls' => "Microsoft Excel Spreadsheet", 
                        'ppt' => "Microsoft PowerPoint Slide", 
-                       'c'   => "C Source", 
+                       'c' => "C Source", 
                        'cpp' => "C++ Source",
                        'txt' => "Plain Text",
                        'rb' => "Ruby Source",
                        'ru' => "Ruby Source",
                        'py' => "Python Source",
-                       'h' => "C/C++ Header"
+                       'h' => "C/C++ Header",
+                       'js' => "JavaScript Code"
                        }
     mime_name = (mime_type == 'image') ? mime_subtype.upcase + ' ' + mime_type.capitalize : nil
     type_collection[self.extension] == nil ? (mime_name ? mime_name : "#{self.mime_subtype} ".upcase + I18n.t(:file).capitalize) : type_collection[self.extension]
