@@ -38,7 +38,7 @@ function hide_options(arg) {
 }
 
 function item_click(arg) {
-  if (event.target.className == 'chkbox' || event.target.parent().className == 'options') {
+  if (event.target.className == 'chkbox') {
     return false;
   }
 
