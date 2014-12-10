@@ -41,25 +41,24 @@ class UserFile < ActiveRecord::Base
   end
   
   def filetype_to_human
-    type_collection = {'pdf' => "PDF Document", 
-                       'doc' => "Microsoft Word Document", 
-                       'xls' => "Microsoft Excel Spreadsheet", 
-                       'ppt' => "Microsoft PowerPoint Slide", 
-                       'c' => "C Source", 
-                       'cpp' => "C++ Source",
-                       'txt' => "Plain Text",
-                       'rb' => "Ruby Source",
-                       'ru' => "Ruby Source",
-                       'py' => "Python Source",
-                       'h' => "C/C++ Header",
-                       'js' => "JavaScript Code"
+    type_collection = {'pdf' => I18n.t(:pdf), 
+                       'doc' => I18n.t(:doc), 
+                       'xls' => I18n.t(:xls), 
+                       'ppt' => I18n.t(:ppt), 
+                       'c' => I18n.t(:c), 
+                       'cpp' => I18n.t(:cpp),
+                       'txt' => I18n.t(:txt),
+                       'rb' => I18n.t(:rb),
+                       'ru' => I18n.t(:ru),
+                       'py' => I18n.t(:py),
+                       'h' => I18n.t(:h),
+                       'js' => I18n.t(:js)
                        }
-    mime_name = (mime_type == 'image') ? mime_subtype.upcase + ' ' + mime_type.capitalize : nil
+    mime_name = (mime_type == 'image') ? mime_subtype.upcase + ' ' + I18n.t(:picture) : nil
     type_collection[self.extension] == nil ? (mime_name ? mime_name : "#{self.mime_subtype} ".upcase + I18n.t(:file).capitalize) : type_collection[self.extension]
   end
 
   def self.search(search)
-   
       where("attachment_file_name LIKE '%#{search}%'")
   end
   

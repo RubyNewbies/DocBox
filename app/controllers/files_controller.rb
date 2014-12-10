@@ -87,7 +87,7 @@ class FilesController < ApplicationController
       @current_folder = @folders[0].parent
     end
     if params[:form_1][:download_multiple] then
-      zipfile_name = "#{Rails.root}/tmp/archive.zip"
+      zipfile_name = "#{Rails.root}/tmp/" + current_user.name + DateTime.current.to_s(:number) + ".zip"
       if File.exists? zipfile_name then 
         File.delete(zipfile_name)
       end

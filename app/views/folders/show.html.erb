@@ -38,7 +38,7 @@
 </form>
 <div id="files_and_folders">
   <%= form_tag({controller: "folders", action: "show"}, method: "get", class: "form-inline search") do %>
-    <%= select_tag :type, options_for_select([['All', 1], ['Music', 2], ['Document', 3], ['Code', 4], ['Video', 5], ['Picture', 6], ['Others', 7] ], @last_type), :class => 'form-control input-sm' %>
+    <%= select_tag :type, options_for_select([[t(:all), 1], [t(:music), 2], [t(:document), 3], [t(:code), 4], [t(:video), 5], [t(:picture), 6], [t(:others), 7] ], @last_type), :class => 'form-control input-sm' %>
     <%= submit_tag t(:filter), :class => 'btn btn-primary btn-sm', :name => 'form_2[filter]' %>
 
     <%= text_field_tag :query, params[:query], :class => 'form-control input-sm' %>
@@ -48,10 +48,10 @@
     <thead><tr>
       <th><input type="checkbox" onclick="toggle_checkall(this.checked);" class="chkbox"></th>
       <th></th>
-      <th><%= sortable "attachment_file_name", "Name" %></th>
-      <th><%= sortable "attachment_content_type", "Type" %></th>
-      <th><%= sortable "attachment_file_size", "Size" %></th>
-      <th><%= sortable "updated_at", "Date Modified" %></th>
+      <th><%= sortable "attachment_file_name", t(:name) %></th>
+      <th><%= sortable "attachment_content_type", t(:type) %></th>
+      <th><%= sortable "attachment_file_size", t(:size) %></th>
+      <th><%= sortable "updated_at", t(:date_modified) %></th>
       <th></th>
     </tr></thead>
   <tbody>
@@ -69,13 +69,13 @@
   <% @folder.children.each do |folder| -%>
     <% if current_user.can_read(folder) -%>
     <tr class="odd" onmouseover="display_options(this);" onmouseout="hide_options(this);" onclick="item_click(this);">
-      <td><%= check_box_tag "folders_id[]", folder.id, false, {:class => "chkbox", :onclick => "check_click();"} %></td>
+      <td onclick="stop_bubble(this.id);"><%= check_box_tag "folders_id[]", folder.id, false, {:class => "chkbox", :onclick => "check_click();"} %></td>
       <td><%= fa_icon('folder-open-o') %></td>
       <td class="file_name"><%= link_to folder.name, folder %></td>
       <td class="file_type"><%= t(:folder).capitalize %></td>
       <td class="file_size">--</td>
-      <td class="file_modified"><%= l folder.updated_at, :format => :short %></td>
-      <td class="options">
+      <td class="file_modified"><%= l folder.updated_at.localtime, :format => :short %></td>
+      <td class="options" onclick="stop_bubble(this.id);">
       <% if current_user.can_update(folder) -%>
         <%= link_to fa_icon("edit"), edit_folder_path(folder), :title => t(:edit), :class => 'options', :style => 'color:#FFF' %>&nbsp;
       <% end -%>
@@ -94,13 +94,13 @@
   <% @files.each do |file| -%>
     <% if current_user.can_read(@folder) -%>
     <tr class="odd" onmouseover="display_options(this);" onmouseout="hide_options(this);" onclick="item_click(this);">
-      <td><%= check_box_tag "id[]", file.id, false, {:class => "chkbox", :onclick => "check_click();"} %></td>
+      <td onclick="stop_bubble(this.id);"><%= check_box_tag "id[]", file.id, false, {:class => "chkbox", :onclick => "check_click();"} %></td>
       <td><%= file_icon(file) %></td>
       <td class="file_name"><%= link_to file.attachment_file_name, file_path(file), :title => "#{t(:download)} #{file.attachment_file_name}" %></td>
       <td class="file_type"><%= file.filetype_to_human %></td>
       <td class="file_size"><%= number_to_human_size(file.attachment_file_size, :locale => I18n.locale) %></td>
-      <td class="file_modified"><%= l file.updated_at, :format => :short %></td>
-      <td class="options">
+      <td class="file_modified"><%= l file.updated_at.localtime, :format => :short %></td>
+      <td class="options" onclick="stop_bubble(this.id);">
       <% if current_user.can_update(file.folder) -%>
         <%= link_to fa_icon("edit"), edit_file_path(file), :title => t(:edit), :class => 'options', :style => 'color:#FFF' %>&nbsp;
       <% end -%>

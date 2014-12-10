@@ -38,9 +38,17 @@ function hide_options(arg) {
 }
 
 function item_click(arg) {
+  if (event.target.className == 'chkbox' || event.target.parent().className == 'options') {
+    return false;
+  }
+
   var obj = $(arg).find('.chkbox');
   obj.prop('checked', function (i, value) {
     return !value;
   });
   check_click();
+}
+
+function stop_bubble(e) {
+  e.stopPropagation();
 }
